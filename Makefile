@@ -127,14 +127,16 @@ clobber: clean
 	rm -f syslogd klogd ksym syslog_tst oops_test TAGS tsyslogd tklogd
 
 install_exec: syslogd klogd
-	${INSTALL} -m 500 -s syslogd ${BINDIR}/syslogd
-	${INSTALL} -m 500 -s klogd ${BINDIR}/klogd
+	mkdir -p ${DESTDIR}${BINDIR}
+	${INSTALL} -m 500 syslogd ${DESTDIR}${BINDIR}/syslogd
+	${INSTALL} -m 500 klogd ${DESTDIR}${BINDIR}/klogd
 
 install_man:
-	${INSTALL} -o ${MAN_USER} -g ${MAN_GROUP} -m ${MAN_PERMS} sysklogd.8 ${MANDIR}/man8/sysklogd.8
-	${INSTALL} -o ${MAN_USER} -g ${MAN_GROUP} -m ${MAN_PERMS} syslogd.8 ${MANDIR}/man8/syslogd.8
-	${INSTALL} -o ${MAN_USER} -g ${MAN_GROUP} -m ${MAN_PERMS} syslog.conf.5 ${MANDIR}/man5/syslog.conf.5
-	${INSTALL} -o ${MAN_USER} -g ${MAN_GROUP} -m ${MAN_PERMS} klogd.8 ${MANDIR}/man8/klogd.8
+	mkdir -p ${DESTDIR}${MANDIR}/man8 ${DESTDIR}${MANDIR}/man5
+	${INSTALL} -o ${MAN_USER} -g ${MAN_GROUP} -m ${MAN_PERMS} sysklogd.8 ${DESTDIR}${MANDIR}/man8/sysklogd.8
+	${INSTALL} -o ${MAN_USER} -g ${MAN_GROUP} -m ${MAN_PERMS} syslogd.8 ${DESTDIR}${MANDIR}/man8/syslogd.8
+	${INSTALL} -o ${MAN_USER} -g ${MAN_GROUP} -m ${MAN_PERMS} syslog.conf.5 ${DESTDIR}${MANDIR}/man5/syslog.conf.5
+	${INSTALL} -o ${MAN_USER} -g ${MAN_GROUP} -m ${MAN_PERMS} klogd.8 ${DESTDIR}${MANDIR}/man8/klogd.8
 
 obj-m += oops.o
 
